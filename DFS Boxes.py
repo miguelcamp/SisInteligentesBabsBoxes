@@ -4,28 +4,27 @@ nodos=0
 def BusqProfundidad(EstInicial, EstSolucion):
     encontre= False
     Camino=[]
-    nodos = 0
     encontre=BusqProfRecursiva(EstInicial, EstSolucion, Camino, encontre)
     return encontre, Camino
 def BusqProfRecursiva(EstExplorado, EstSolucion, Camino, encontre):
-    if(EstExplorado.condTerminacion()):
+    if(EstExplorado.cond_terminacion()):
         encontre=True
         EstSolucion.copy(EstExplorado)
         Camino.insert(0,EstExplorado)
     else:
-        ReglasAplicables=EstExplorado.EncontrarReglasAplicables()
+        ReglasAplicables=EstExplorado.encontrar_reglas_aplicables()
         while len(ReglasAplicables)>0 and not encontre:
             R=ReglasAplicables.pop()
-            EstNuevo=Boxes(N)
+            EstNuevo=Boxes()
             EstNuevo.copy(EstExplorado)
-            EstNuevo.AplicarRegla(R)
+            EstNuevo.aplicar_regla(R)
             global nodos
             nodos += 1
             if EstNuevo not in ListEstGen:
-                EstNuevo.padre=EstExplorado
+                EstNuevo.padre = EstExplorado
                 EstExplorado.copy(EstNuevo)
                 ListEstGen.insert(0,EstExplorado)
-                Estado=Boxes(N)
+                Estado=Boxes()
                 Estado.copy(EstExplorado)
                 BusqProfRecursiva(Estado,EstSolucion, Camino, encontre)
         if encontre:
@@ -35,10 +34,15 @@ def BusqProfRecursiva(EstExplorado, EstSolucion, Camino, encontre):
 
 N=6
 
+n=10
 
-EstInicial=Boxes(N)
-EstSolucion=Boxes(N)
+
+
+
+EstInicial=Boxes()
+EstInicial.leer_entradas("entradas.txt")
+EstSolucion=Boxes()
 ListEstGen=[EstInicial]
 BusqProfundidad(EstInicial, EstSolucion)
-print(EstSolucion.posiciones)
+print(EstSolucion.stack)
 print("Nodos:", nodos)

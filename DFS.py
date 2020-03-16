@@ -8,12 +8,12 @@ def BusqProfundidad(EstInicial, EstSolucion):
     encontre=BusqProfRecursiva(EstInicial, EstSolucion, Camino, encontre)
     return encontre, Camino
 def BusqProfRecursiva(EstExplorado, EstSolucion, Camino, encontre):
-    if(EstExplorado.condTerminacion()):
+    if(EstExplorado.cond_terminacion()):
         encontre=True
         EstSolucion.copy(EstExplorado)
         Camino.insert(0,EstExplorado)
     else:
-        ReglasAplicables=EstExplorado.EncontrarReglasAplicables()
+        ReglasAplicables=EstExplorado.encontrar_reglas_aplicables()
         while len(ReglasAplicables)>0 and not encontre:
             R=ReglasAplicables.pop()
             EstNuevo=NodoReinas(N)

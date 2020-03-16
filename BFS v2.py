@@ -4,12 +4,13 @@ from NodoReinas import NodoReinas
 start = time.time()
 
 best=0
-N=30
+N=20
 NodosVisitados=0
 ##Búsq_Amplitud (EstInicial)🡪 Encontré, E_solución, Camino
 EstInicial= NodoReinas(N)
 Est_solucion=NodoReinas(N)
 Camino=[]
+num_soluciones=0
 ##CrearCola () 🡪 cola
 cola=[]
 ##CrearLista (EstInicial) 🡪 ListEstGenerados
@@ -22,12 +23,12 @@ EstInicial.padre=None
 encontre= False
 ReglaAplicable=[]
 ##Mientras (NO (Vacía (cola))) y No (Encontré)), hacer
-while(len(cola)>0 and not encontre):
+while len(cola)>0 and not encontre:
     Est_Expl=NodoReinas(N)
     Est_Expl.copy(cola.pop())##Sacar_de_Cola (cola) 🡪 Est_Expl
     ReglaAplicable=Est_Expl.EncontrarReglasAplicables() ##ReglaAplicable 🡨 EncontrarReglaAplicable (Est_Expl)
     ##Mientras (ReglaAplicable no sea Ø) y No (Encontré)), hacer:
-    while len(ReglaAplicable)!=0 and not encontre:
+    while len(ReglaAplicable)!=0 and not encontre :
         ##SacarRegla (ReglaAplicable) 🡪 R
         R=ReglaAplicable.pop()
         ##E_Nuevo 🡨 Aplicar (R, Est_Expl)
@@ -44,13 +45,13 @@ while(len(cola)>0 and not encontre):
             Est_Nuevo.padre=Est_Expl
             ##Si (Cond_Term (E_Nuevo), entonces
             if Est_Nuevo.condTerminacion():
-                print("Solucion")
-                print(Est_Nuevo.posiciones)
+                #print(Est_Nuevo.posiciones)
                 ##E_solución 🡨 E_Nuevo
                 Est_solucion.copy(Est_Nuevo)
                 ##ConstruirCamino (E_Nuevo) 🡪 Cam
                 ##Encontré 🡨 Si
                 encontre=True
+                num_soluciones+=1
             ##C/c  Insertar (E_Nuevo, ListEstGenerados)
             else:
                 ListEstGenerados.add(Est_Nuevo)
@@ -61,4 +62,5 @@ while(len(cola)>0 and not encontre):
 end = time.time()
 print("Tiempo:",end - start)
 print("Nodos visitados:",NodosVisitados)
-Est_solucion.posiciones
+print("Numero de Soluciones:", num_soluciones)
+print("Ultima Solucion: ", Est_solucion.posiciones)
