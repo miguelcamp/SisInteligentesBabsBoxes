@@ -89,5 +89,5 @@ def correr_n_veces_sin_cruces(n):
     print("Promedio Tiempo: ", suma_tiempo/n)
     print("Promedio Iteraciones: ", suma_iteraciones/n)
 
-correr_n_veces_sin_cruces(20)
-#correr_n_veces(20)
+#correr_n_veces_sin_cruces(20)
+correr_n_veces(20)

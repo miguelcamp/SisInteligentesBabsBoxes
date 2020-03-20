@@ -1,0 +1,45 @@
+Con Pc = 0.7 y Pm=0.001
+
+Con Pc = 0 y Pm=0.001
+Tiempo 1 :  2.9658
+Iteraciones:  53
+Tiempo 2 :  3.6976
+Iteraciones:  70
+Tiempo 3 :  4.3339
+Iteraciones:  81
+Tiempo 4 :  4.2961
+Iteraciones:  80
+Tiempo 5 :  3.7157
+Iteraciones:  65
+Tiempo 6 :  92.9705
+Iteraciones:  1595
+Tiempo 7 :  2.3277
+Iteraciones:  45
+Tiempo 8 :  4.1281
+Iteraciones:  80
+Tiempo 9 :  24.3375
+Iteraciones:  423
+Tiempo 10 :  4.3789
+Iteraciones:  80
+Tiempo 11 :  3.3252
+Iteraciones:  65
+Tiempo 12 :  6.1076
+Iteraciones:  96
+Tiempo 13 :  6.7085
+Iteraciones:  108
+Tiempo 14 :  4.9493
+Iteraciones:  82
+Tiempo 15 :  3.172
+Iteraciones:  55
+Tiempo 16 :  18.0124
+Iteraciones:  292
+Tiempo 17 :  3.9927
+Iteraciones:  67
+Tiempo 18 :  5.2061
+Iteraciones:  89
+Tiempo 19 :  207.2289
+Iteraciones:  3281
+Tiempo 20 :  3.58
+Iteraciones:  64
+Promedio Tiempo:  20.471729934215546
+Promedio Iteraciones:  338.55
