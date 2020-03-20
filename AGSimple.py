@@ -1,4 +1,5 @@
 import random
+from Cromosoma import Cromosoma
 
 
 class AGSimple:
@@ -8,32 +9,25 @@ class AGSimple:
 
     def generar(self, tamP):
         for each in range(tamP):
-            cromosoma=""
-            for i in range(self.bitlength):
-                cromosoma+=str(random.randint(0,1))
-            self.cromosomas.append(cromosoma)
+            nuevo = Cromosoma()
+            nuevo.generar()
+            self.cromosomas.append(nuevo)
 
-    def cromosoma_converge(self, cromosoma):
-        for each in cromosoma:
-            if each == "0":
-                return False
-        return True
+    def funcion_adaptacion(self):
+        for each in self.cromosomas:
+            each.calcular_fitness()
+
+    def insertar(self, cromosoma):
+        self.cromosomas.append(cromosoma)
 
     def converge(self):
         num_convergentes = 0
         for each in self.cromosomas:
-            if self.cromosoma_converge(each):
+            if each.calcular_fitness() == 1:
                 num_convergentes += 1
         if num_convergentes >= len(self.cromosomas)/2:
             return True
         return False
-
-    def funcion_adaptacion(self, cromosoma):
-        num_unos = 0
-        for each in cromosoma:
-            if each == "1":
-                num_unos += 1
-        return num_unos/self.bitlength
 
     def calcular_numero_cruces(self, Pc):
         return int(Pc * len(self.cromosomas))
@@ -42,20 +36,35 @@ class AGSimple:
         mejor_fa = 0
         mejor_cromosoma = None
         for each in self.cromosomas:
-            if self.funcion_adaptacion(each) > mejor_fa:
+            if each.calcular_fitness() > mejor_fa:
                 mejor_cromosoma = each
-                mejor_fa = self.funcion_adaptacion(each)
+                mejor_fa = each.calcular_fitness()
         return mejor_cromosoma
 
+    def seleccionar_par(self):
+        seleccionables=[]
+        for each in self.cromosomas:
+            probabilidad = round(each.fa, 2)*100
+            for i in range(int(probabilidad)+1):
+                seleccionables.append(each)
+        seleccion1 = random.choice(seleccionables)
+        seleccion2 = random.choice(seleccionables)
+        return seleccion1, seleccion2
 
+    def cruzar(self, I1, I2):
+        D1 = Cromosoma()
+        D2 = Cromosoma()
+        midpoint = random.randint(1,self.bitlength - 2)
+        mitad_i1_ini = I1.genes[:midpoint]
+        mitad_i1_fin = I1.genes[midpoint:]
+        mitad_i2_ini = I2.genes[:midpoint]
+        mitad_i2_fin = I2.genes[midpoint:]
+        genes_cruzados1 = mitad_i1_ini + mitad_i2_fin
+        genes_cruzados2 = mitad_i2_ini + mitad_i1_fin
+        D1.genes = genes_cruzados1
+        D2.genes = genes_cruzados2
+        return D1, D2
 
-
-print(random.randint(0,1))
-
-AGS = AGSimple()
-AGS.generar(9)
-print(AGS.cromosomas[0])
-print(AGS.cromosomas[1])
-print(AGS.funcion_adaptacion(AGS.cromosomas[0]))
-print(AGS.funcion_adaptacion(AGS.cromosomas[2]))
-print(AGS.cromosoma_mas_optimo())
+    def reducir(self, tam):
+        while len(self.cromosomas) > tam:
+            self.cromosomas.pop(0)
